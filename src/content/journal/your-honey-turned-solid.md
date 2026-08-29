@@ -6,6 +6,8 @@ date: 2026-08-04
 readingTime: 3 min
 honey: linden
 author: Hunny Farm
+image: /journal/your-honey-turned-solid.webp
+imageAlt: A crystallized jar of honey sits in a pan of warm water on a kitchen counter, next to a clear jar and a spoon of set honey.
 ---
 
 Open a jar of raw honey in January and it may have gone from clear gold to something closer to pale butter, grainy at the bottom, stiff on the spoon. Nothing went wrong. This is what honey does when nobody has heated or filtered it.

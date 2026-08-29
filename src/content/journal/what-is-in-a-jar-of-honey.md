@@ -6,8 +6,8 @@ date: 2026-08-29
 readingTime: 5 min
 honey: white-clover
 author: Hunny Farm
-image: /journal/honey-field-inspection.webp
-imageAlt: A beekeeper in a white suit lifts a frame of capped honeycomb out of a hive in a field of clover.
+image: /journal/what-is-in-a-jar-of-honey.webp
+imageAlt: Gloved hands hold a frame of honeycomb up to the light, half capped in wax and half open, with bees on the comb.
 ---
 
 Honey starts as nectar, which is mostly water with some sugar in it. Flowers make it to bribe insects into carrying pollen around, and a foraging bee will visit a few hundred blossoms on one trip to fill her honey stomach. Back at the hive she hands it to a house bee, who passes it to another, and with each pass the bees add enzymes that break the nectar's sucrose into simpler sugars, glucose and fructose. That is the first thing happening in the jar: honey is sweet in a different way than table sugar because bees have already done part of the digesting.

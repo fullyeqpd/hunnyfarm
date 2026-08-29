@@ -6,6 +6,8 @@ date: 2026-08-25
 readingTime: 4 min
 honey: florida-red
 author: Hunny Farm
+image: /journal/field-guide-to-buckwheat.webp
+imageAlt: A field of white buckwheat flowers, a weathered hive, and a slab of dark honeycomb beside a slice of rye bread.
 ---
 
 Buckwheat honey is very different from most honey. It is dark, nearly black in the jar, rich, and much less sweet than clover or wildflower, with bold notes of molasses, toasted toffee and a deep earthy aroma. Many people compare it to dark molasses or malt rather than to honey at all.

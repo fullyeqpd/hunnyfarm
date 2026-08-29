@@ -6,6 +6,8 @@ date: 2026-08-11
 readingTime: 5 min
 honey: white-clover
 author: "[AUTHOR NAME]"
+image: /journal/three-weeks-in-june.webp
+imageAlt: A beekeeper walks a row of hives below a hillside of blooming basswood trees in the Driftless.
 ---
 
 [DRAFT — replace with the beekeeper's own account of the June linden harvest in the Driftless: when the trees bloom, where the hives go, what the weather did this year, and how the honey tasted coming off the extractor.]

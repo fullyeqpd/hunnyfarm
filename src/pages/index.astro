@@ -52,7 +52,7 @@ import { SITE } from '../data/site';
       <p class="byline">Bottled by hand · Lake County, Illinois</p>
       <a href="/farm" class="story-link"><span>About the farm</span></a>
     </div>
-    <div class="photo reveal">[ Photo: hives in a field ]</div>
+    <img class="photo reveal" src="/journal/honey-field-inspection.webp" alt="A beekeeper in a white suit lifts a frame of honeycomb from a hive in a clover field." width="1536" height="1024" loading="lazy" decoding="async" />
   </section>
 
   <section class="also wrap">
@@ -114,7 +114,7 @@ import { SITE } from '../data/site';
   .farm h2 { font-size: clamp(36px, 4.4vw, 64px); line-height: 1; font-weight: 500; margin: 0; text-wrap: balance; }
   .farm .blurb { opacity: 0.85; }
   .byline { font-size: 14px; font-weight: 500; opacity: 0.7; }
-  .photo { aspect-ratio: 4 / 3; background: linear-gradient(160deg, #E9D9B0, #C9A86A); display: flex; align-items: center; justify-content: center; font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: #5A4322; }
+  .photo { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; background: #E9D9B0; }
   @media (max-width: 720px) { .farm { grid-template-columns: 1fr; } }
 
   .also { padding-bottom: clamp(64px, 8vw, 120px); display: flex; flex-direction: column; gap: 28px; }

@@ -21,9 +21,9 @@ import { HONEYS } from '../data/honeys';
     ))}
   </section>
   <section class="photo-row wrap">
-    <div class="photo">[ Photo: hives in a field ]</div>
-    <div class="photo">[ Photo: the extractor ]</div>
-    <div class="photo">[ Photo: the beekeeper ]</div>
+    <img class="photo" src="/journal/three-weeks-in-june.webp" alt="A row of hives below a hillside of blooming basswood trees." width="1536" height="1024" loading="lazy" decoding="async" />
+    <img class="photo" src="/journal/bottling-day.webp" alt="Honey running from a bottling bucket into a glass jar in a small workroom." width="1536" height="1024" loading="lazy" decoding="async" />
+    <img class="photo" src="/journal/honey-field-inspection.webp" alt="A beekeeper in a white suit lifts a frame of honeycomb from a hive in a clover field." width="1536" height="1024" loading="lazy" decoding="async" />
   </section>
 </Base>
 <style>
@@ -39,6 +39,6 @@ import { HONEYS } from '../data/honeys';
   .blurb { font-size: 16px; line-height: 1.55; }
   .link { font-size: 14px; font-weight: 600; margin-top: 8px; padding: 10px 0; align-self: flex-start; }
   .photo-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; padding-bottom: clamp(64px, 8vw, 120px); }
-  .photo { aspect-ratio: 4 / 3; background: linear-gradient(160deg, #E9D9B0, #C9A86A); display: flex; align-items: center; justify-content: center; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #5A4322; text-align: center; padding: 12px; }
+  .photo { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; background: #E9D9B0; }
   @media (max-width: 720px) { .places, .photo-row { grid-template-columns: 1fr; } }
 </style>
