@@ -15,6 +15,8 @@ export type Honey = {
   crystallizes: string;
   /** Stripe Payment Link / Shopify checkout URL. Placeholder until checkout is set up. */
   buyUrl: string;
+  /** Per-product availability. The store-wide switch is SITE.storeOpen in site.ts. */
+  inStock: boolean;
 };
 
 export const HONEYS: Honey[] = [
@@ -38,6 +40,7 @@ export const HONEYS: Honey[] = [
     pairings: ['Morning oatmeal', 'Cornbread, still warm', 'Plain yogurt', 'A spoon'],
     crystallizes: 'Sets within weeks — that is a sign it is raw.',
     buyUrl: '#',
+    inStock: false,
   },
   {
     slug: 'linden',
@@ -59,6 +62,7 @@ export const HONEYS: Honey[] = [
     pairings: ['Fresh bread and cold butter', 'Chamomile or black tea', 'Soft cheeses — chèvre, brie', 'Over ripe pears'],
     crystallizes: 'Sets in a month or two.',
     buyUrl: '#',
+    inStock: false,
   },
   {
     slug: 'tupelo',
@@ -80,6 +84,7 @@ export const HONEYS: Honey[] = [
     pairings: ['Hot biscuits', 'Morning tea', 'Ricotta on toast', 'Grilled peaches'],
     crystallizes: 'Almost never. That is the tupelo signature.',
     buyUrl: '#',
+    inStock: false,
   },
   {
     slug: 'florida-red',
@@ -101,6 +106,7 @@ export const HONEYS: Honey[] = [
     pairings: ['Sharp cheddar', 'Fried chicken', 'Dark rye', 'A whiskey cocktail'],
     crystallizes: 'Sets over a few months.',
     buyUrl: '#',
+    inStock: false,
   },
 ];
 
@@ -113,6 +119,8 @@ export type Extra = {
   notes: [string, string, string];
   blurb: string;
   buyUrl: string;
+  /** Per-product availability. The store-wide switch is SITE.storeOpen in site.ts. */
+  inStock: boolean;
 };
 
 export const EXTRAS: Extra[] = [
@@ -126,6 +134,7 @@ export const EXTRAS: Extra[] = [
     blurb:
       'Sugar-maple sap from the hardwood forests of northern Wisconsin, boiled down each spring. Grade A Amber: rich, smooth, with caramel and a warm woodsy finish.',
     buyUrl: '#',
+    inStock: false,
   },
   {
     slug: 'buckwheat',
@@ -137,6 +146,7 @@ export const EXTRAS: Extra[] = [
     blurb:
       'Dark, rich and much less sweet than clover, with molasses, toasted toffee and a deep earthy aroma. An acquired taste — try one jar before you buy more.',
     buyUrl: '#',
+    inStock: false,
   },
 ];
 

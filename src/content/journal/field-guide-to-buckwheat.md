@@ -2,7 +2,7 @@
 title: A field guide to buckwheat honey, for people who think they don't like it
 kicker: Acquired tastes
 dek: Molasses, toffee, malt. If your grandmother was from anywhere east of Berlin, you may already know this one.
-date: 2026-09-22
+date: 2026-08-25
 readingTime: 4 min
 honey: florida-red
 author: Hunny Farm

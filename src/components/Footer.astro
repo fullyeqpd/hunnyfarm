@@ -1,14 +1,21 @@
+---
+import { SITE, socialLinks } from '../data/site';
+const social = socialLinks();
+---
 <footer class="footer wrap">
   <div>
     <div class="serif wordmark">Hunny Farm</div>
-    <p class="muted">Raw honey, bottled in Wisconsin.<br />hunnyfarm.com</p>
+    <p class="muted">Raw honey, bottled by hand<br />in Lake County, Illinois.</p>
   </div>
   <div class="links">
-    <a href="/#honeys">Our honeys</a><a href="/farm">The farm</a><a href="/journal">Journal</a><a href="mailto:[EMAIL]">Wholesale</a>
+    <a href="/#honeys">Our honeys</a><a href="/farm">The farm</a><a href="/journal">Journal</a><a href={`mailto:${SITE.email}?subject=Wholesale`}>Wholesale</a>
   </div>
   <div class="muted">
     <p>Ships within 2 days. Free shipping over $50.</p>
-    <p>[EMAIL] · [INSTAGRAM]</p>
+    <p><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+    {social.length > 0 && (
+      <p class="social">{social.map((s) => <a href={s.href} target="_blank" rel="noopener">{s.label}</a>)}</p>
+    )}
   </div>
 </footer>
 <style>
@@ -18,5 +25,7 @@
   .muted { font-size: 14px; opacity: 0.75; line-height: 1.6; }
   .links { display: flex; flex-direction: column; gap: 2px; font-size: 14px; }
   .links a { padding: 8px 0; }
+  .social { display: flex; gap: 18px; margin-top: 12px; }
+  .social a { padding: 8px 0; }
   @media (max-width: 720px) { .footer { grid-template-columns: 1fr; } }
 </style>

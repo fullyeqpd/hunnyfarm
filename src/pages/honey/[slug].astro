@@ -2,12 +2,14 @@
 import Base from '../../layouts/Base.astro';
 import Jar from '../../components/Jar.astro';
 import { HONEYS } from '../../data/honeys';
+import { SITE } from '../../data/site';
 
 export function getStaticPaths() {
   return HONEYS.map((h) => ({ params: { slug: h.slug }, props: { honey: h } }));
 }
 const { honey: h } = Astro.props;
 const others = HONEYS.filter((x) => x.slug !== h.slug);
+const available = SITE.storeOpen && h.inStock;
 ---
 <Base title={`${h.name} Honey`} description={h.blurb} theme={h.color}>
   <section class="product">
@@ -21,13 +23,23 @@ const others = HONEYS.filter((x) => x.slug !== h.slug);
       <h1 class="serif">{h.name}<br />Honey</h1>
       <div class="notes"><span>{h.notes[0]}</span><span>·</span><span>{h.notes[1]}</span><span>·</span><span>{h.notes[2]}</span></div>
       <div class="story">{h.story.map((p) => <p>{p}</p>)}</div>
-      <form class="buy" action={h.buyUrl} method="get">
-        <div class="serif price">${h.price}</div>
-        <div class="size">1 lb (16 oz) glass jar<br />Raw · Unfiltered</div>
-        <div class="spacer"></div>
-        <label class="qty"><span class="sr">Quantity</span><input type="number" name="quantity" value="1" min="1" max="12" /></label>
-        <button type="submit" class="btn">Add to cart</button>
-      </form>
+      {available ? (
+        <form class="buy" action={h.buyUrl} method="get">
+          <div class="serif price">${h.price}</div>
+          <div class="size">1 lb (16 oz) glass jar<br />Raw · Unfiltered</div>
+          <div class="spacer"></div>
+          <label class="qty"><span class="sr">Quantity</span><input type="number" name="quantity" value="1" min="1" max="12" /></label>
+          <button type="submit" class="btn">Add to cart</button>
+        </form>
+      ) : (
+        <div class="buy soldout">
+          <div class="serif price">${h.price}</div>
+          <div class="size">1 lb (16 oz) glass jar<br />Raw · Unfiltered</div>
+          <div class="spacer"></div>
+          <span class="btn btn-off" aria-disabled="true">{SITE.soldOut}</span>
+          <p class="note">{SITE.soldOutNote} <a href={`mailto:${SITE.email}?subject=${encodeURIComponent(`Let me know when ${h.name} is back`)}`}>{SITE.email}</a></p>
+        </div>
+      )}
       <div class="facts">
         <div>
           <p class="eyebrow">Goes with</p>
@@ -38,7 +50,7 @@ const others = HONEYS.filter((x) => x.slug !== h.slug);
           <ul>
             <li>Nectar source: {h.source}</li>
             <li>{h.crystallizes} Warm-water bath overnight to re-liquefy.</li>
-            <li>Bottled in Wisconsin. Ships within 2 days.</li>
+            <li>{SITE.bottledLine}</li>
           </ul>
         </div>
       </div>
@@ -77,6 +89,9 @@ const others = HONEYS.filter((x) => x.slug !== h.slug);
   .qty input { width: 84px; height: 52px; border: 1px solid var(--rule-strong); border-radius: 999px; background: transparent; text-align: center; font: inherit; font-weight: 600; }
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .btn { border: 0; cursor: pointer; font-family: inherit; }
+  .soldout .btn-off { border: 1px solid currentColor; }
+  .note { flex-basis: 100%; font-size: 14px; line-height: 1.5; opacity: 0.8; margin: 4px 0 0; }
+  .note a { text-decoration: underline; text-underline-offset: 3px; }
   .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
   .facts .eyebrow { opacity: 0.7; margin-bottom: 10px; }
   .facts ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.4; }

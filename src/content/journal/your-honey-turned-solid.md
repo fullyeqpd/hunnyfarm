@@ -2,7 +2,7 @@
 title: "Your honey turned solid. That's the good news."
 kicker: Raw honey, explained
 dek: Crystallization is what raw, unfiltered honey does when nobody has heated or filtered the life out of it. Here's why, and how to bring it back in one night.
-date: 2026-09-01
+date: 2026-08-04
 readingTime: 3 min
 honey: linden
 author: Hunny Farm

@@ -2,10 +2,12 @@
 title: Why tupelo costs five dollars more
 kicker: Single-source honey
 dek: One tree, one river system, one short window each spring, and a honey that never crystallizes. That's what you're paying for.
-date: 2026-09-15
+date: 2026-08-18
 readingTime: 4 min
 honey: tupelo
 author: Hunny Farm
+image: /journal/tupelo-wetland-harvest.webp
+imageAlt: Two beekeepers in veils inspect a frame of honeycomb beside hives at the edge of a cypress swamp.
 ---
 
 Most honey is a blend of whatever was blooming within a few miles of the hive. Tupelo is not. It comes from one tree, the White Ogeechee Tupelo, which grows in the river swamps of northwest Florida and blooms for two or three weeks each spring.

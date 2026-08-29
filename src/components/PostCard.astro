@@ -7,15 +7,19 @@ const { post, big = false } = Astro.props;
 const h = HONEYS.find((x) => x.slug === post.data.honey)!;
 const date = post.data.date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 ---
-<a href={`/journal/${post.id}`} class:list={['card reveal', { big }]} style={`--bg:${h.color}; --fg:${h.ink}`}>
-  <div class="grain"></div>
+<a href={`/journal/${post.id}`} class:list={['card reveal', { big, ill: !!post.data.image }]} style={`--bg:${h.color}; --fg:${h.ink}`}>
+  {!post.data.image && <div class="grain"></div>}
   <div class="text">
     <p class="eyebrow">{post.data.kicker} · {date} · {post.data.readingTime}</p>
     <h2 class="serif">{post.data.title}</h2>
     <p class="dek">{post.data.dek}</p>
     <span class="read">Read →</span>
   </div>
-  <div class="art"><Jar slug={h.slug} name={h.name} notes={h.notes} width={big ? 200 : 120} shadow float /></div>
+  {post.data.image ? (
+    <div class="art pic"><img src={post.data.image} alt={post.data.imageAlt ?? ''} width="1536" height="1024" loading="lazy" decoding="async" /></div>
+  ) : (
+    <div class="art"><Jar slug={h.slug} name={h.name} notes={h.notes} width={big ? 200 : 120} shadow float /></div>
+  )}
 </a>
 <style>
   .card { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr; gap: 20px; align-items: center; background: var(--bg); color: var(--fg); padding: 32px; }
@@ -30,6 +34,13 @@ const date = post.data.date.toLocaleDateString('en-US', { month: 'long', day: 'n
   .big .dek { font-size: 18px; }
   .read { font-size: 13px; font-weight: 600; letter-spacing: 0.04em; margin-top: 4px; }
   .art { display: flex; justify-content: center; position: relative; order: 0; }
+  .card.ill { background: var(--paper); color: var(--ink); border: 1px solid var(--rule); padding: 0; gap: 0; align-items: stretch; }
+  .card.ill:hover { color: var(--ink); }
+  .card.ill .text { padding: 28px 28px 32px; }
+  .card.ill.big .text { padding: clamp(32px, 4vw, 56px) clamp(24px, 4vw, 64px); }
+  .pic { display: block; overflow: hidden; }
+  .pic img { display: block; width: 100%; height: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+  .big .pic img { aspect-ratio: auto; min-height: 100%; }
   .big .art { order: 1; }
   @media (max-width: 720px) { .card.big { grid-template-columns: 1fr; } .big .text { order: 1; } .big .art { order: 0; } }
 </style>

@@ -2,7 +2,7 @@
 title: "Three weeks in June: chasing the linden bloom in the Driftless"
 kicker: From the hives
 dek: Basswood flowers for a few short weeks, and the whole year's Linden honey depends on getting the hives there in time.
-date: 2026-09-08
+date: 2026-08-11
 readingTime: 5 min
 honey: white-clover
 author: "[AUTHOR NAME]"

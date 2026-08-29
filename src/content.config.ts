@@ -12,6 +12,9 @@ const journal = defineCollection({
     honey: z.enum(['white-clover', 'linden', 'tupelo', 'florida-red']),
     author: z.string().default('Hunny Farm'),
     draft: z.boolean().default(false),
+    /** Illustration for the post, path under /public (e.g. /journal/foo.webp). Landscape 3:2. */
+    image: z.string().optional(),
+    imageAlt: z.string().optional(),
   }),
 });
 

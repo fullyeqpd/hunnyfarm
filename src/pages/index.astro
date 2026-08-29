@@ -2,13 +2,14 @@
 import Base from '../layouts/Base.astro';
 import Jar from '../components/Jar.astro';
 import { HONEYS, EXTRAS } from '../data/honeys';
+import { SITE } from '../data/site';
 ---
 <Base title="Hunny Farm">
   <section class="hero wrap">
     <p class="eyebrow">Raw · Unfiltered · One-pound jars</p>
     <h1 class="serif">Four honeys. Each from where it grows best.</h1>
-    <p class="lede">Clover, linden, tupelo and red titi, gathered by a Wisconsin beekeeper and bottled the way it came out of the comb.</p>
-    <a href="#honeys" class="btn">Shop the four · $15–20</a>
+    <p class="lede">Clover, linden, tupelo and red titi, gathered where each one grows best and bottled by hand in Lake County, Illinois — the way it came out of the comb.</p>
+    <a href="#honeys" class="btn">{SITE.storeOpen ? 'Shop the four · $15–20' : 'Meet the four · $15–20'}</a>
   </section>
 
   <section class="ladder wrap" id="honeys" aria-label="The four honeys">
@@ -33,7 +34,7 @@ import { HONEYS, EXTRAS } from '../data/honeys';
         <div class="notes"><span>{h.notes[0]}</span><span>·</span><span>{h.notes[1]}</span><span>·</span><span>{h.notes[2]}</span></div>
         <p class="blurb">{h.blurb}</p>
         <div class="actions">
-          <a href={h.buyUrl} class="btn band-btn">Add to cart · ${h.price}</a>
+          {SITE.storeOpen && h.inStock ? <a href={h.buyUrl} class="btn band-btn">Add to cart · ${h.price}</a> : <span class="btn band-btn btn-off" aria-disabled="true">{SITE.soldOut} · ${h.price}</span>}
           <a href={`/honey/${h.slug}`} class="story-link"><span>Read the story</span></a>
         </div>
       </div>
@@ -48,7 +49,7 @@ import { HONEYS, EXTRAS } from '../data/honeys';
       <p class="eyebrow">The farm</p>
       <h2 class="serif">One beekeeper. Four places the nectar is best.</h2>
       <p class="blurb">Linden from the Driftless hills of Wisconsin. Tupelo and red titi from the river swamps of the Florida Panhandle. Clover from open summer fields. Every jar is raw and unfiltered, with the pollen and enzymes still in it, so it will crystallize with time — set the jar in warm water overnight and it comes right back.</p>
-      <p class="byline">[BEEKEEPER NAME] · [TOWN], Wisconsin</p>
+      <p class="byline">Bottled by hand · Lake County, Illinois</p>
       <a href="/farm" class="story-link"><span>About the farm</span></a>
     </div>
     <div class="photo reveal">[ Photo: hives in a field ]</div>
@@ -67,7 +68,7 @@ import { HONEYS, EXTRAS } from '../data/honeys';
             <h3 class="serif">{x.name}</h3>
             <p class="sub">{x.sub} · {x.size}</p>
             <p class="also-notes">{x.notes.join(' · ')}</p>
-            <a href={x.buyUrl} class="also-buy">Add to cart · ${x.price}</a>
+            {SITE.storeOpen && x.inStock ? <a href={x.buyUrl} class="also-buy">Add to cart · ${x.price}</a> : <span class="also-buy off">{SITE.soldOut} · ${x.price}</span>}
           </div>
         </div>
       ))}
@@ -100,6 +101,8 @@ import { HONEYS, EXTRAS } from '../data/honeys';
   .actions { display: flex; gap: 18px; align-items: center; margin-top: 8px; flex-wrap: wrap; }
   .band-btn { background: var(--fg); color: var(--bg); }
   .band-btn:hover { color: var(--bg); }
+  .band-btn.btn-off { background: transparent; color: var(--fg); border: 1px solid var(--fg); opacity: 0.75; }
+  .band-btn.btn-off:hover { color: var(--fg); }
   .story-link { font-size: 14px; font-weight: 500; padding: 12px 0; }
   .story-link span { border-bottom: 1px solid currentColor; padding-bottom: 2px; }
   .band-jar { position: relative; }
@@ -125,5 +128,6 @@ import { HONEYS, EXTRAS } from '../data/honeys';
   .sub { font-size: 13px; opacity: 0.7; }
   .also-notes { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; opacity: 0.75; }
   .also-buy { font-size: 14px; font-weight: 600; margin-top: 2px; padding: 10px 0; align-self: flex-start; }
+  .also-buy.off { opacity: 0.55; }
   @media (max-width: 720px) { .also-grid { grid-template-columns: 1fr; } }
 </style>

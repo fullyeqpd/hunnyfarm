@@ -17,15 +17,28 @@ const more = all.filter((p) => p.id !== post.id).sort((a, b) => b.data.date.valu
 ---
 <Base title={post.data.title} description={post.data.dek} theme={h.color}>
   <article>
-    <header class="hero wrap" style={`--bg:${h.color}; --fg:${h.ink}`}>
-      <div class="grain"></div>
-      <div class="hero-text">
-        <p class="eyebrow">{post.data.kicker} · {date} · {post.data.readingTime} read</p>
-        <h1 class="serif">{post.data.title}</h1>
-        <p class="dek">{post.data.dek}</p>
-      </div>
-      <div class="hero-art"><Jar slug={h.slug} name={h.name} notes={h.notes} width={260} shadow float /></div>
-    </header>
+    {post.data.image ? (
+      <header class="hero-ill wrap">
+        <div class="hero-text">
+          <p class="eyebrow">{post.data.kicker} · {date} · {post.data.readingTime} read</p>
+          <h1 class="serif">{post.data.title}</h1>
+          <p class="dek">{post.data.dek}</p>
+        </div>
+        <figure class="ill">
+          <img src={post.data.image} alt={post.data.imageAlt ?? ''} width="1536" height="1024" decoding="async" fetchpriority="high" />
+        </figure>
+      </header>
+    ) : (
+      <header class="hero wrap" style={`--bg:${h.color}; --fg:${h.ink}`}>
+        <div class="grain"></div>
+        <div class="hero-text">
+          <p class="eyebrow">{post.data.kicker} · {date} · {post.data.readingTime} read</p>
+          <h1 class="serif">{post.data.title}</h1>
+          <p class="dek">{post.data.dek}</p>
+        </div>
+        <div class="hero-art"><Jar slug={h.slug} name={h.name} notes={h.notes} width={260} shadow float /></div>
+      </header>
+    )}
     <div class="body wrap">
       <div class="prose"><Content /></div>
       <p class="author">{post.data.author}, Hunny Farm</p>
@@ -39,6 +52,12 @@ const more = all.filter((p) => p.id !== post.id).sort((a, b) => b.data.date.valu
 <style>
   .hero { position: relative; overflow: hidden; background: var(--bg); color: var(--fg); display: grid; grid-template-columns: 1fr minmax(0, 420px); gap: 48px; align-items: center; padding-top: clamp(48px, 5vw, 72px); padding-bottom: clamp(48px, 5vw, 72px); }
   .hero-text { display: flex; flex-direction: column; gap: 20px; position: relative; }
+  .hero-ill { display: flex; flex-direction: column; gap: clamp(28px, 4vw, 48px); padding-top: clamp(24px, 4vw, 48px); }
+  .hero-ill .hero-text { max-width: 860px; }
+  .hero-ill .eyebrow { opacity: 0.7; }
+  .hero-ill h1 { font-size: clamp(40px, 6vw, 88px); line-height: 0.96; font-weight: 500; letter-spacing: -0.015em; margin: 0; text-wrap: balance; }
+  .ill { margin: 0; }
+  .ill img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
   .hero .eyebrow { opacity: 0.8; }
   .hero h1 { font-size: clamp(40px, 6vw, 88px); line-height: 0.96; font-weight: 500; letter-spacing: -0.015em; margin: 0; text-wrap: balance; }
   .dek { font-size: clamp(17px, 1.4vw, 20px); line-height: 1.5; opacity: 0.9; max-width: 640px; text-wrap: pretty; }
