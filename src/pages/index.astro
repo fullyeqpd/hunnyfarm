@@ -3,8 +3,24 @@ import Base from '../layouts/Base.astro';
 import Jar from '../components/Jar.astro';
 import { HONEYS, EXTRAS } from '../data/honeys';
 import { SITE } from '../data/site';
+const siteUrl = (Astro.site ?? new URL('https://hunnyfarm.com')).origin;
+const schema = [
+  {
+    '@context': 'https://schema.org', '@type': 'ItemList', name: 'Hunny Farm honeys',
+    itemListElement: HONEYS.map((h, i) => ({ '@type': 'ListItem', position: i + 1, url: `${siteUrl}/honey/${h.slug}`, name: `${h.name} Honey` })),
+  },
+  {
+    '@context': 'https://schema.org', '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: 'Is Hunny Farm honey raw?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Every jar is raw and unfiltered: extracted from the comb, strained through a coarse mesh to catch wax, and bottled without heating or fine filtering, so the pollen and enzymes stay in.' } },
+      { '@type': 'Question', name: 'Where is Hunny Farm honey from?', acceptedAnswer: { '@type': 'Answer', text: 'Each honey comes from where its flower grows best: white clover from sweet-clover fields, linden from the Driftless hills of Wisconsin, tupelo from the river swamps of northwest Florida and Florida red from black titi in the Florida Panhandle. All of it is bottled by hand in Lake County, Illinois.' } },
+      { '@type': 'Question', name: 'Why did my honey turn solid?', acceptedAnswer: { '@type': 'Answer', text: 'Raw honey crystallizes because nobody heated or filtered it. It is a sign it is the real thing. Set the jar in warm water overnight and it turns liquid again. Tupelo is the one honey that rarely crystallizes.' } },
+      { '@type': 'Question', name: 'How big are the jars and what do they cost?', acceptedAnswer: { '@type': 'Answer', text: 'One-pound (16 oz) glass jars. White Clover, Linden and Florida Red are $15; Tupelo is $20.' } },
+    ],
+  },
+];
 ---
-<Base title="Hunny Farm">
+<Base title="Hunny Farm" schema={schema}>
   <section class="hero wrap">
     <p class="eyebrow">Raw · Unfiltered · One-pound jars</p>
     <h1 class="serif">Four honeys. Each from where it grows best.</h1>

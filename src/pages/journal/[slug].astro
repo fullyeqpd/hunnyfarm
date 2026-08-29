@@ -14,8 +14,42 @@ const { Content } = await render(post);
 const h = HONEYS.find((x) => x.slug === post.data.honey)!;
 const date = post.data.date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 const more = all.filter((p) => p.id !== post.id).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
+const siteUrl = (Astro.site ?? new URL('https://hunnyfarm.com')).origin;
+const iso = post.data.date.toISOString();
+const ogImage = post.data.image ? `/og/journal-${post.id}.jpg` : `/og/${h.slug}.png`;
+const words = post.body?.split(/\s+/).filter(Boolean).length ?? 0;
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    '@id': `${siteUrl}/journal/${post.id}#article`,
+    headline: post.data.title,
+    description: post.data.dek,
+    image: [`${siteUrl}${ogImage}`, ...(post.data.image ? [`${siteUrl}${post.data.image}`] : [])],
+    datePublished: iso,
+    dateModified: iso,
+    wordCount: words,
+    inLanguage: 'en-US',
+    isAccessibleForFree: true,
+    author: { '@type': 'Organization', '@id': `${siteUrl}/#org`, name: 'Hunny Farm' },
+    publisher: { '@id': `${siteUrl}/#org` },
+    mainEntityOfPage: `${siteUrl}/journal/${post.id}`,
+    articleSection: post.data.kicker,
+    about: { '@type': 'Thing', name: 'Raw honey' },
+    mentions: { '@id': `${siteUrl}/honey/${h.slug}#product` },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Hunny Farm', item: siteUrl },
+      { '@type': 'ListItem', position: 2, name: 'Journal', item: `${siteUrl}/journal` },
+      { '@type': 'ListItem', position: 3, name: post.data.title, item: `${siteUrl}/journal/${post.id}` },
+    ],
+  },
+];
 ---
-<Base title={post.data.title} description={post.data.dek} theme={h.color}>
+<Base title={post.data.title} description={post.data.dek} theme={h.color} type="article" published={iso} modified={iso} image={ogImage} imageAlt={post.data.imageAlt ?? post.data.title} schema={schema}>
   <article>
     {post.data.image ? (
       <header class="hero-ill wrap">

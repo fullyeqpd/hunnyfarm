@@ -10,8 +10,48 @@ export function getStaticPaths() {
 const { honey: h } = Astro.props;
 const others = HONEYS.filter((x) => x.slug !== h.slug);
 const available = SITE.storeOpen && h.inStock;
+const siteUrl = (Astro.site ?? new URL('https://hunnyfarm.com')).origin;
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    '@id': `${siteUrl}/honey/${h.slug}#product`,
+    name: `${h.name} Honey`,
+    description: h.blurb,
+    image: [`${siteUrl}/og/${h.slug}.png`, `${siteUrl}/jars/${h.slug}.webp`],
+    brand: { '@type': 'Brand', name: 'Hunny Farm' },
+    manufacturer: { '@id': `${siteUrl}/#org` },
+    category: 'Honey',
+    material: 'Raw, unfiltered honey',
+    size: '1 lb (16 oz) glass jar',
+    additionalProperty: [
+      { '@type': 'PropertyValue', name: 'Nectar source', value: h.source },
+      { '@type': 'PropertyValue', name: 'Origin', value: h.origin },
+      { '@type': 'PropertyValue', name: 'Tasting notes', value: h.notes.join(', ') },
+      { '@type': 'PropertyValue', name: 'Processing', value: 'Raw, unfiltered, unheated' },
+    ],
+    offers: {
+      '@type': 'Offer',
+      url: `${siteUrl}/honey/${h.slug}`,
+      price: h.price,
+      priceCurrency: 'USD',
+      availability: available ? 'https://schema.org/InStock' : 'https://schema.org/SoldOut',
+      itemCondition: 'https://schema.org/NewCondition',
+      seller: { '@id': `${siteUrl}/#org` },
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Hunny Farm', item: siteUrl },
+      { '@type': 'ListItem', position: 2, name: 'Our honeys', item: `${siteUrl}/#honeys` },
+      { '@type': 'ListItem', position: 3, name: `${h.name} Honey`, item: `${siteUrl}/honey/${h.slug}` },
+    ],
+  },
+];
 ---
-<Base title={`${h.name} Honey`} description={h.blurb} theme={h.color}>
+<Base title={`${h.name} Honey — Raw, 1 lb Jar`} description={`${h.blurb} Raw, unfiltered ${h.name.toLowerCase()} honey from ${h.origin}, bottled by hand in Lake County, Illinois. $${h.price} per one-pound jar.`} theme={h.color} image={`/og/${h.slug}.png`} imageAlt={`A one-pound jar of Hunny Farm ${h.name} Honey`} schema={schema}>
   <section class="product">
     <div class="stage" style={`--bg:${h.color}; --fg:${h.ink}`}>
       <div class="grain"></div>
