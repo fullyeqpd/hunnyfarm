@@ -10,7 +10,7 @@ export const SITE = {
    * Fill these in as the accounts go live.
    */
   social: [
-    { label: 'Instagram', href: '' },
+    { label: 'Instagram', href: 'https://www.instagram.com/thehunnyfarm/' },
     { label: 'Facebook', href: 'https://www.facebook.com/TheHunnyFarm/' },
     { label: 'TikTok', href: '' },
   ] as { label: string; href: string }[],
