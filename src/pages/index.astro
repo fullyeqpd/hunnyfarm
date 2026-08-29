@@ -1,0 +1,128 @@
+---
+import Base from '../layouts/Base.astro';
+import Jar from '../components/Jar.astro';
+import { HONEYS, EXTRAS } from '../data/honeys';
+---
+<Base title="Hunny Farm">
+  <section class="hero wrap">
+    <p class="eyebrow">Raw · Unfiltered · One-pound jars</p>
+    <h1 class="serif">Four honeys. Each from where it grows best.</h1>
+    <p class="lede">Clover, linden, tupelo and red titi, gathered by a Wisconsin beekeeper and bottled the way it came out of the comb.</p>
+    <a href="#honeys" class="btn">Shop the four · $15–20</a>
+  </section>
+
+  <section class="ladder wrap" id="honeys" aria-label="The four honeys">
+    <div class="glow"></div>
+    <div class="row">
+      {HONEYS.map((h) => (
+        <a href={`/honey/${h.slug}`} class="ladder-item">
+          <Jar slug={h.slug} name={h.name} notes={h.notes} width={250} float />
+          <span class="serif ladder-name">{h.name}</span>
+          <span class="ladder-origin">{h.origin}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  {HONEYS.map((h, i) => (
+    <section class="band wrap" style={`--bg:${h.color}; --fg:${h.ink}`} class:list={{ flip: i % 2 === 1 }}>
+      <div class="grain"></div>
+      <div class="band-text reveal">
+        <p class="eyebrow">No. {h.number} · {h.origin}</p>
+        <h2 class="serif">{h.name}</h2>
+        <div class="notes"><span>{h.notes[0]}</span><span>·</span><span>{h.notes[1]}</span><span>·</span><span>{h.notes[2]}</span></div>
+        <p class="blurb">{h.blurb}</p>
+        <div class="actions">
+          <a href={h.buyUrl} class="btn band-btn">Add to cart · ${h.price}</a>
+          <a href={`/honey/${h.slug}`} class="story-link">Read the story</a>
+        </div>
+      </div>
+      <div class="band-jar reveal">
+        <Jar slug={h.slug} name={h.name} notes={h.notes} width={380} shadow float />
+      </div>
+    </section>
+  ))}
+
+  <section class="farm wrap">
+    <div class="reveal">
+      <p class="eyebrow">The farm</p>
+      <h2 class="serif">One beekeeper. Four places the nectar is best.</h2>
+      <p class="blurb">Linden from the Driftless hills of Wisconsin. Tupelo and red titi from the river swamps of the Florida Panhandle. Clover from open summer fields. Every jar is raw and unfiltered, with the pollen and enzymes still in it, so it will crystallize with time — set the jar in warm water overnight and it comes right back.</p>
+      <p class="byline">[BEEKEEPER NAME] · [TOWN], Wisconsin</p>
+      <a href="/farm" class="story-link">About the farm</a>
+    </div>
+    <div class="photo reveal">[ Photo: hives in a field ]</div>
+  </section>
+
+  <section class="also wrap">
+    <div class="also-head">
+      <h2 class="serif">Also from the farm</h2>
+      <p>Small batches. When they're gone, they're gone.</p>
+    </div>
+    <div class="also-grid">
+      {EXTRAS.map((x) => (
+        <div class="also-card reveal">
+          <Jar slug={x.slug} name={x.name} width={110} label={false} />
+          <div>
+            <h3 class="serif">{x.name}</h3>
+            <p class="sub">{x.sub} · {x.size}</p>
+            <p class="also-notes">{x.notes.join(' · ')}</p>
+            <a href={x.buyUrl} class="also-buy">Add to cart · ${x.price}</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 22px; padding-top: clamp(32px, 5vw, 56px); }
+  .hero .eyebrow { opacity: 0.7; }
+  .hero h1 { font-size: clamp(44px, 7.8vw, 112px); line-height: 0.94; font-weight: 500; letter-spacing: -0.015em; max-width: 1100px; margin: 0; text-wrap: balance; }
+  .lede { max-width: 560px; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.55; opacity: 0.85; text-wrap: pretty; }
+  .hero .btn { margin-top: 10px; }
+
+  .ladder { position: relative; margin-top: clamp(32px, 4vw, 56px); padding-bottom: clamp(32px, 4vw, 56px); border-bottom: 1px solid var(--rule); }
+  .glow { position: absolute; left: 0; right: 0; bottom: 0; height: 60%; background: linear-gradient(180deg, rgba(240,193,46,0) 0%, rgba(240,193,46,0.28) 100%); pointer-events: none; }
+  .row { position: relative; display: grid; min-width: 0; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 3vw, 42px); justify-items: center; align-items: start; }
+  .ladder-item { display: flex; min-width: 0; width: 100%; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+  .ladder-item :global(.jar) { width: min(250px, 100%); }
+  .ladder-name { font-size: 26px; font-weight: 500; margin-top: 22px; }
+  .ladder-origin { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.7; }
+  @media (max-width: 720px) { .row { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ladder-name { font-size: 22px; } }
+
+  .band { position: relative; background: var(--bg); color: var(--fg); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(24px, 4vw, 64px); align-items: center; justify-items: center; padding-top: clamp(56px, 7vw, 96px); padding-bottom: clamp(56px, 7vw, 96px); }
+  .band.flip .band-text { order: 2; }
+  .band-text { display: flex; flex-direction: column; gap: 22px; max-width: 460px; position: relative; }
+  .band-text .eyebrow { opacity: 0.8; }
+  .band-text h2 { font-size: clamp(56px, 6.4vw, 92px); line-height: 0.92; font-weight: 500; letter-spacing: -0.01em; margin: 0; }
+  .blurb { font-size: 18px; line-height: 1.55; text-wrap: pretty; }
+  .actions { display: flex; gap: 18px; align-items: center; margin-top: 8px; flex-wrap: wrap; }
+  .band-btn { background: var(--fg); color: var(--bg); }
+  .band-btn:hover { color: var(--bg); }
+  .story-link { font-size: 14px; font-weight: 500; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+  .band-jar { position: relative; }
+  @media (max-width: 720px) { .band { grid-template-columns: 1fr; } .band.flip .band-text { order: 0; } .band-jar :global(.jar) { width: 260px; } }
+
+  .farm { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 5vw, 80px); align-items: center; padding-top: clamp(64px, 8vw, 120px); padding-bottom: clamp(64px, 8vw, 120px); }
+  .farm > div:first-child { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
+  .farm .eyebrow { opacity: 0.7; }
+  .farm h2 { font-size: clamp(36px, 4.4vw, 64px); line-height: 1; font-weight: 500; margin: 0; text-wrap: balance; }
+  .farm .blurb { opacity: 0.85; }
+  .byline { font-size: 14px; font-weight: 500; opacity: 0.7; }
+  .photo { aspect-ratio: 4 / 3; background: linear-gradient(160deg, #E9D9B0, #C9A86A); display: flex; align-items: center; justify-content: center; font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: #5A4322; }
+  @media (max-width: 720px) { .farm { grid-template-columns: 1fr; } }
+
+  .also { padding-bottom: clamp(64px, 8vw, 120px); display: flex; flex-direction: column; gap: 28px; }
+  .also-head { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .also-head h2 { font-size: clamp(32px, 3vw, 44px); font-weight: 500; margin: 0; }
+  .also-head p { font-size: 14px; opacity: 0.7; }
+  .also-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .also-card { display: flex; gap: 28px; align-items: center; padding: 28px; border: 1px solid var(--rule); background: var(--paper); }
+  .also-card > div { display: flex; flex-direction: column; gap: 8px; }
+  .also-card h3 { font-size: 34px; font-weight: 500; line-height: 1; margin: 0; }
+  .sub { font-size: 13px; opacity: 0.7; }
+  .also-notes { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; opacity: 0.75; }
+  .also-buy { font-size: 14px; font-weight: 600; margin-top: 6px; }
+  @media (max-width: 720px) { .also-grid { grid-template-columns: 1fr; } }
+</style>

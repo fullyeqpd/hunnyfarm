@@ -1,0 +1,45 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('journal', ({ data }) => !data.draft)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const [lead, ...rest] = posts;
+---
+<Base title="Journal" description="Notes from the hives, the kitchen, and the road between them.">
+  <section class="head wrap">
+    <div>
+      <p class="eyebrow">Journal</p>
+      <h1 class="serif">Notes from the hives, the kitchen, and the road between them.</h1>
+    </div>
+  </section>
+  <section class="list wrap">
+    {lead && <PostCard post={lead} big />}
+    <div class="grid">{rest.map((p) => <PostCard post={p} />)}</div>
+    <div class="letter">
+      <div>
+        <h2 class="serif">One letter a month, when the bees have news.</h2>
+        <p>Harvest dates, new jars, and nothing else.</p>
+      </div>
+      <form action="[NEWSLETTER FORM ACTION]" method="post">
+        <input type="email" name="email" placeholder="you@email.com" required />
+        <button class="btn" type="submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
+</Base>
+<style>
+  .head { padding-top: clamp(24px, 4vw, 48px); padding-bottom: 40px; }
+  .head .eyebrow { opacity: 0.7; margin-bottom: 16px; }
+  .head h1 { font-size: clamp(40px, 6.6vw, 96px); line-height: 0.94; font-weight: 500; letter-spacing: -0.015em; margin: 0; max-width: 760px; text-wrap: balance; }
+  .list { display: flex; flex-direction: column; gap: 24px; padding-bottom: clamp(64px, 8vw, 120px); }
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+  .letter { display: grid; min-width: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; align-items: center; margin-top: 48px; padding: 48px clamp(24px, 4vw, 64px); border: 1px solid var(--rule); background: var(--paper); }
+  .letter h2 { font-size: clamp(28px, 3vw, 40px); font-weight: 500; line-height: 1.05; margin: 0 0 10px; }
+  .letter p { font-size: 15px; opacity: 0.75; }
+  .letter form { display: flex; gap: 12px; min-width: 0; }
+  .letter > div { min-width: 0; }
+  .letter input { flex-grow: 1; min-width: 0; height: 52px; border: 1px solid var(--rule-strong); border-radius: 999px; padding: 0 22px; font: inherit; font-size: 14px; background: transparent; }
+  .letter .btn { border: 0; cursor: pointer; font-family: inherit; }
+  @media (max-width: 720px) { .letter { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,23 @@
+---
+const path = Astro.url.pathname;
+const links = [
+  ['/#honeys', 'Our honeys'],
+  ['/farm', 'The farm'],
+  ['/journal', 'Journal'],
+];
+---
+<header class="nav">
+  <a href="/" class="serif wordmark">Hunny Farm</a>
+  <nav>
+    {links.map(([href, label]) => <a href={href} aria-current={path.startsWith(href.replace('/#honeys','/x')) ? 'page' : undefined}>{label}</a>)}
+  </nav>
+  <a href="/#honeys" class="cart">Shop</a>
+</header>
+<style>
+  .nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 24px var(--gutter-nav); }
+  .wordmark { font-size: clamp(20px, 2vw, 26px); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+  nav { display: flex; gap: clamp(18px, 3vw, 36px); font-size: 14px; font-weight: 500; }
+  nav a[aria-current] { border-bottom: 1px solid currentColor; }
+  .cart { font-size: 14px; font-weight: 500; }
+  @media (max-width: 600px) { nav { display: none; } }
+</style>

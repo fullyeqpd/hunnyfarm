@@ -1,0 +1,35 @@
+---
+import Jar from './Jar.astro';
+import { HONEYS } from '../data/honeys';
+import type { CollectionEntry } from 'astro:content';
+interface Props { post: CollectionEntry<'journal'>; big?: boolean; }
+const { post, big = false } = Astro.props;
+const h = HONEYS.find((x) => x.slug === post.data.honey)!;
+const date = post.data.date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+---
+<a href={`/journal/${post.id}`} class:list={['card reveal', { big }]} style={`--bg:${h.color}; --fg:${h.ink}`}>
+  <div class="grain"></div>
+  <div class="text">
+    <p class="eyebrow">{post.data.kicker} · {date} · {post.data.readingTime}</p>
+    <h2 class="serif">{post.data.title}</h2>
+    <p class="dek">{post.data.dek}</p>
+    <span class="read">Read →</span>
+  </div>
+  <div class="art"><Jar slug={h.slug} name={h.name} notes={h.notes} width={big ? 200 : 120} shadow float /></div>
+</a>
+<style>
+  .card { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr; gap: 20px; align-items: center; background: var(--bg); color: var(--fg); padding: 32px; }
+  .card:hover { color: var(--fg); }
+  .card.big { grid-template-columns: 1fr 1fr; gap: 48px; padding: clamp(32px, 4vw, 56px) clamp(24px, 4vw, 64px); }
+  .text { display: flex; flex-direction: column; gap: 14px; position: relative; order: 1; }
+  .big .text { order: 0; }
+  .eyebrow { opacity: 0.8; }
+  h2 { font-size: 30px; line-height: 1.02; font-weight: 500; margin: 0; text-wrap: balance; }
+  .big h2 { font-size: clamp(36px, 4vw, 56px); }
+  .dek { font-size: 15px; line-height: 1.55; opacity: 0.9; text-wrap: pretty; }
+  .big .dek { font-size: 18px; }
+  .read { font-size: 13px; font-weight: 600; letter-spacing: 0.04em; margin-top: 4px; }
+  .art { display: flex; justify-content: center; position: relative; order: 0; }
+  .big .art { order: 1; }
+  @media (max-width: 720px) { .card.big { grid-template-columns: 1fr; } .big .text { order: 1; } .big .art { order: 0; } }
+</style>

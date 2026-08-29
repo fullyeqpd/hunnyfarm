@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import { HONEYS } from '../data/honeys';
+---
+<Base title="The farm">
+  <section class="head wrap">
+    <p class="eyebrow">The farm</p>
+    <h1 class="serif">One beekeeper. Four places the nectar is best.</h1>
+    <p class="lede">Hunny Farm honey is gathered and bottled by [BEEKEEPER NAME] in [TOWN], Wisconsin. Some of it comes from hives an hour away in the Driftless. Some of it rides back from the Florida Panhandle each spring. All of it is raw, unfiltered, and bottled the way it came out of the comb.</p>
+  </section>
+  <section class="places wrap">
+    {HONEYS.map((h) => (
+      <div class="place reveal" style={`--bg:${h.color}; --fg:${h.ink}`}>
+        <div class="grain"></div>
+        <p class="eyebrow">No. {h.number}</p>
+        <h2 class="serif">{h.origin}</h2>
+        <p class="src">{h.source} · {h.season}</p>
+        <p class="blurb">{h.blurb}</p>
+        <a href={`/honey/${h.slug}`} class="link">{h.name} Honey →</a>
+      </div>
+    ))}
+  </section>
+  <section class="photo-row wrap">
+    <div class="photo">[ Photo: hives in a field ]</div>
+    <div class="photo">[ Photo: the extractor ]</div>
+    <div class="photo">[ Photo: the beekeeper ]</div>
+  </section>
+</Base>
+<style>
+  .head { padding-top: clamp(24px, 4vw, 48px); padding-bottom: 48px; display: flex; flex-direction: column; gap: 18px; max-width: 900px; }
+  .head .eyebrow { opacity: 0.7; }
+  .head h1 { font-size: clamp(40px, 6.6vw, 96px); line-height: 0.94; font-weight: 500; letter-spacing: -0.015em; margin: 0; text-wrap: balance; }
+  .lede { font-size: 18px; line-height: 1.6; opacity: 0.85; text-wrap: pretty; }
+  .places { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; padding-bottom: 24px; }
+  .place { position: relative; overflow: hidden; background: var(--bg); color: var(--fg); padding: clamp(28px, 3vw, 44px); display: flex; flex-direction: column; gap: 12px; }
+  .place .eyebrow { opacity: 0.8; }
+  .place h2 { font-size: clamp(30px, 3vw, 44px); line-height: 1; font-weight: 500; margin: 0; }
+  .src { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.8; }
+  .blurb { font-size: 16px; line-height: 1.55; }
+  .link { font-size: 14px; font-weight: 600; margin-top: 8px; }
+  .photo-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; padding-bottom: clamp(64px, 8vw, 120px); }
+  .photo { aspect-ratio: 4 / 3; background: linear-gradient(160deg, #E9D9B0, #C9A86A); display: flex; align-items: center; justify-content: center; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #5A4322; text-align: center; padding: 12px; }
+  @media (max-width: 720px) { .places, .photo-row { grid-template-columns: 1fr; } }
+</style>

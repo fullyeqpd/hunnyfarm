@@ -1,0 +1,110 @@
+:root {
+  --cream: #FBF6EA;
+  --paper: #FFFDF7;
+  --ink: #2A1A10;
+  --rule: rgba(42, 26, 16, 0.14);
+  --rule-strong: rgba(42, 26, 16, 0.3);
+  --serif: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
+  --sans: 'Instrument Sans', 'Helvetica Neue', Arial, sans-serif;
+  --gutter: clamp(20px, 6vw, 160px);
+  --gutter-nav: clamp(20px, 4vw, 64px);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+a { color: inherit; text-decoration: none; }
+a:hover { color: #7B2912; }
+img { max-width: 100%; display: block; }
+p { margin: 0; }
+
+.serif { font-family: var(--serif); }
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.notes {
+  display: flex;
+  gap: 14px;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+  opacity: 0.85;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  padding: 0 28px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  background: var(--ink);
+  color: var(--cream);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.btn:hover { color: var(--cream); transform: translateY(-1px); box-shadow: 0 10px 24px rgba(42, 26, 16, 0.18); }
+.wrap { padding-left: var(--gutter); padding-right: var(--gutter); }
+
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.06) 0.6px, transparent 0.6px);
+  background-size: 3px 3px;
+}
+
+/* Jar with the label printed on the glass */
+.jar { position: relative; width: var(--w, 300px); max-width: 100%; }
+.jar img { width: 100%; height: auto; }
+.jar .label {
+  position: absolute;
+  left: 20%; right: 20%; top: 33%;
+  display: flex; flex-direction: column; align-items: center;
+  color: rgba(255, 250, 240, 0.94);
+  text-align: center;
+  font-size: var(--w, 300px);
+}
+.jar .mark {
+  width: 30%; aspect-ratio: 1;
+  border: 1.5px solid rgba(255, 250, 240, 0.94);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 4%;
+}
+.jar .mark svg { width: 62%; height: 62%; }
+.jar .brand { font-family: var(--serif); font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; line-height: 1.1; font-size: calc(var(--w) * 0.0378); }
+.jar .raw { letter-spacing: 0.28em; text-transform: uppercase; font-weight: 500; opacity: 0.9; font-size: calc(var(--w) * 0.019); margin-top: calc(var(--w) * 0.031); }
+.jar .name { font-family: var(--serif); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; line-height: 0.98; font-size: calc(var(--w) * 0.0845); margin-top: calc(var(--w) * 0.022); }
+.jar .tasting { letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500; opacity: 0.9; font-size: calc(var(--w) * 0.019); margin-top: calc(var(--w) * 0.022); }
+.jar .wt { letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.85; font-size: calc(var(--w) * 0.019); margin-top: calc(var(--w) * 0.04); }
+.jar.shadow { filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 0.25)); }
+.jar.float { transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.jar.float:hover { transform: translateY(-8px) rotate(-1deg); }
+
+/* Reveal on scroll */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .jar.float { transition: none; }
+}
+
+/* Prose for journal posts */
+.prose { font-family: var(--serif); font-size: clamp(19px, 2vw, 23px); line-height: 1.5; text-wrap: pretty; }
+.prose p + p { margin-top: 1.2em; }
+.prose h2 { font-family: var(--serif); font-weight: 500; font-size: 1.5em; margin: 1.6em 0 0.5em; line-height: 1.1; }
+.prose a { border-bottom: 1px solid currentColor; }
+.prose ul { padding-left: 1.2em; }

@@ -1,0 +1,21 @@
+<footer class="footer wrap">
+  <div>
+    <div class="serif wordmark">Hunny Farm</div>
+    <p class="muted">Raw honey, bottled in Wisconsin.<br />hunnyfarm.com</p>
+  </div>
+  <div class="links">
+    <a href="/#honeys">Our honeys</a><a href="/farm">The farm</a><a href="/journal">Journal</a><a href="mailto:[EMAIL]">Wholesale</a>
+  </div>
+  <div class="muted">
+    <p>Ships within 2 days. Free shipping over $50.</p>
+    <p>[EMAIL] · [INSTAGRAM]</p>
+  </div>
+</footer>
+<style>
+  .footer { background: var(--ink); color: var(--cream); padding-top: 64px; padding-bottom: 64px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; }
+  .footer a:hover { color: #F0C12E; }
+  .wordmark { font-size: 28px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 10px; }
+  .muted { font-size: 14px; opacity: 0.75; line-height: 1.6; }
+  .links { display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
+  @media (max-width: 720px) { .footer { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,95 @@
+---
+import Base from '../../layouts/Base.astro';
+import Jar from '../../components/Jar.astro';
+import { HONEYS } from '../../data/honeys';
+
+export function getStaticPaths() {
+  return HONEYS.map((h) => ({ params: { slug: h.slug }, props: { honey: h } }));
+}
+const { honey: h } = Astro.props;
+const others = HONEYS.filter((x) => x.slug !== h.slug);
+---
+<Base title={`${h.name} Honey`} description={h.blurb} theme={h.color}>
+  <section class="product">
+    <div class="stage" style={`--bg:${h.color}; --fg:${h.ink}`}>
+      <div class="grain"></div>
+      <div class="serif watermark" aria-hidden="true">No.{h.number}</div>
+      <Jar slug={h.slug} name={h.name} notes={h.notes} width={440} shadow float />
+    </div>
+    <div class="details">
+      <p class="eyebrow">No. {h.number} · {h.origin} · {h.season}</p>
+      <h1 class="serif">{h.name}<br />Honey</h1>
+      <div class="notes"><span>{h.notes[0]}</span><span>·</span><span>{h.notes[1]}</span><span>·</span><span>{h.notes[2]}</span></div>
+      <div class="story">{h.story.map((p) => <p>{p}</p>)}</div>
+      <form class="buy" action={h.buyUrl} method="get">
+        <div class="serif price">${h.price}</div>
+        <div class="size">1 lb (16 oz) glass jar<br />Raw · Unfiltered</div>
+        <div class="spacer"></div>
+        <label class="qty"><span class="sr">Quantity</span><input type="number" name="quantity" value="1" min="1" max="12" /></label>
+        <button type="submit" class="btn">Add to cart</button>
+      </form>
+      <div class="facts">
+        <div>
+          <p class="eyebrow">Goes with</p>
+          <ul>{h.pairings.map((p) => <li>{p}</li>)}</ul>
+        </div>
+        <div>
+          <p class="eyebrow">Good to know</p>
+          <ul>
+            <li>Nectar source: {h.source}</li>
+            <li>{h.crystallizes} Warm-water bath overnight to re-liquefy.</li>
+            <li>Bottled in Wisconsin. Ships within 2 days.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="others wrap">
+    <p class="eyebrow">The other three</p>
+    <div class="others-grid">
+      {others.map((x) => (
+        <a href={`/honey/${x.slug}`} class="other reveal" style={`--bg:${x.color}; --fg:${x.ink}`}>
+          <div class="grain"></div>
+          <Jar slug={x.slug} name={x.name} notes={x.notes} width={180} float />
+          <span class="serif other-name">{x.name}</span>
+          <span class="other-notes">{x.notes.join(' · ')}</span>
+          <span class="other-price">${x.price}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .product { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); min-height: 860px; }
+  .stage { position: relative; background: var(--bg); color: var(--fg); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 48px 24px; }
+  .watermark { position: absolute; left: -20px; bottom: -40px; font-size: clamp(160px, 22vw, 300px); line-height: 1; font-weight: 500; color: rgba(0,0,0,0.10); letter-spacing: -0.03em; }
+  .stage :global(.jar) { position: relative; width: min(440px, 70%); }
+  .details { display: flex; flex-direction: column; justify-content: center; gap: 26px; padding: clamp(40px, 5vw, 80px) clamp(24px, 6vw, 120px) clamp(40px, 5vw, 80px) clamp(24px, 5vw, 96px); }
+  .details .eyebrow { opacity: 0.7; }
+  .details h1 { font-size: clamp(56px, 7vw, 104px); line-height: 0.92; font-weight: 500; letter-spacing: -0.015em; margin: 0; }
+  .story { display: flex; flex-direction: column; gap: 14px; font-size: 18px; line-height: 1.6; opacity: 0.9; text-wrap: pretty; }
+  .buy { display: flex; align-items: center; gap: 20px; padding: 26px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); flex-wrap: wrap; }
+  .price { font-size: 40px; font-weight: 500; }
+  .size { font-size: 13px; opacity: 0.7; line-height: 1.4; }
+  .spacer { flex-grow: 1; }
+  .qty input { width: 84px; height: 52px; border: 1px solid var(--rule-strong); border-radius: 999px; background: transparent; text-align: center; font: inherit; font-weight: 600; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .btn { border: 0; cursor: pointer; font-family: inherit; }
+  .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+  .facts .eyebrow { opacity: 0.7; margin-bottom: 10px; }
+  .facts ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.4; }
+  @media (max-width: 860px) { .product { grid-template-columns: 1fr; min-height: 0; } .stage { min-height: 520px; } .facts { grid-template-columns: 1fr; } }
+
+  .others { padding-top: 72px; padding-bottom: 96px; border-top: 1px solid var(--rule); display: flex; flex-direction: column; gap: 28px; }
+  .others .eyebrow { opacity: 0.7; }
+  .others-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+  .other { position: relative; background: var(--bg); color: var(--fg); display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 36px 24px 28px; text-align: center; }
+  .other:hover { color: var(--fg); }
+  .other :global(.jar) { width: min(180px, 60%); position: relative; }
+  .other-name { font-size: 30px; font-weight: 500; }
+  .other-notes { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.8; }
+  .other-price { font-size: 14px; font-weight: 600; }
+  @media (max-width: 720px) { .others-grid { grid-template-columns: 1fr; } }
+</style>

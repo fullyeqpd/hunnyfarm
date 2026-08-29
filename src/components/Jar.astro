@@ -1,0 +1,19 @@
+---
+import Mark from './Mark.astro';
+interface Props { slug: string; name: string; notes?: readonly string[]; width?: number; shadow?: boolean; float?: boolean; label?: boolean }
+const { slug, name, notes = [], width = 300, shadow = false, float = false, label = true } = Astro.props;
+const src = `/jars/${slug}.webp`;
+---
+<div class:list={['jar', { shadow, float }]} style={`--w:${width}px`}>
+  <img src={src} alt={`${name} honey in a one-pound glass jar`} width="450" height="900" loading="lazy" decoding="async" />
+  {label && (
+    <div class="label" aria-hidden="true">
+      <div class="mark"><Mark /></div>
+      <div class="brand">Hunny<br />Farm</div>
+      <div class="raw">Raw · Unfiltered</div>
+      <div class="name">{name}<br />Honey</div>
+      <div class="tasting">{notes.join(' · ')}</div>
+      <div class="wt">Net wt 1 lb (16 oz)</div>
+    </div>
+  )}
+</div>
