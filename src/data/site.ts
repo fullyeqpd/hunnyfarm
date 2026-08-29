@@ -11,7 +11,7 @@ export const SITE = {
    */
   social: [
     { label: 'Instagram', href: '' },
-    { label: 'Facebook', href: '' },
+    { label: 'Facebook', href: 'https://www.facebook.com/TheHunnyFarm/' },
     { label: 'TikTok', href: '' },
   ] as { label: string; href: string }[],
   /** Master switch for the store. false = every product shows as sold out, no cart actions. */
