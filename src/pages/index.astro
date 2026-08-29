@@ -34,7 +34,7 @@ import { HONEYS, EXTRAS } from '../data/honeys';
         <p class="blurb">{h.blurb}</p>
         <div class="actions">
           <a href={h.buyUrl} class="btn band-btn">Add to cart · ${h.price}</a>
-          <a href={`/honey/${h.slug}`} class="story-link">Read the story</a>
+          <a href={`/honey/${h.slug}`} class="story-link"><span>Read the story</span></a>
         </div>
       </div>
       <div class="band-jar reveal">
@@ -49,7 +49,7 @@ import { HONEYS, EXTRAS } from '../data/honeys';
       <h2 class="serif">One beekeeper. Four places the nectar is best.</h2>
       <p class="blurb">Linden from the Driftless hills of Wisconsin. Tupelo and red titi from the river swamps of the Florida Panhandle. Clover from open summer fields. Every jar is raw and unfiltered, with the pollen and enzymes still in it, so it will crystallize with time — set the jar in warm water overnight and it comes right back.</p>
       <p class="byline">[BEEKEEPER NAME] · [TOWN], Wisconsin</p>
-      <a href="/farm" class="story-link">About the farm</a>
+      <a href="/farm" class="story-link"><span>About the farm</span></a>
     </div>
     <div class="photo reveal">[ Photo: hives in a field ]</div>
   </section>
@@ -100,7 +100,8 @@ import { HONEYS, EXTRAS } from '../data/honeys';
   .actions { display: flex; gap: 18px; align-items: center; margin-top: 8px; flex-wrap: wrap; }
   .band-btn { background: var(--fg); color: var(--bg); }
   .band-btn:hover { color: var(--bg); }
-  .story-link { font-size: 14px; font-weight: 500; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+  .story-link { font-size: 14px; font-weight: 500; padding: 12px 0; }
+  .story-link span { border-bottom: 1px solid currentColor; padding-bottom: 2px; }
   .band-jar { position: relative; }
   @media (max-width: 720px) { .band { grid-template-columns: 1fr; } .band.flip .band-text { order: 0; } .band-jar :global(.jar) { width: 260px; } }
 
@@ -123,6 +124,6 @@ import { HONEYS, EXTRAS } from '../data/honeys';
   .also-card h3 { font-size: 34px; font-weight: 500; line-height: 1; margin: 0; }
   .sub { font-size: 13px; opacity: 0.7; }
   .also-notes { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; opacity: 0.75; }
-  .also-buy { font-size: 14px; font-weight: 600; margin-top: 6px; }
+  .also-buy { font-size: 14px; font-weight: 600; margin-top: 2px; padding: 10px 0; align-self: flex-start; }
   @media (max-width: 720px) { .also-grid { grid-template-columns: 1fr; } }
 </style>
